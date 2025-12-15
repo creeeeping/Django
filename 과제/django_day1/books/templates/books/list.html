@@ -1,0 +1,9 @@
+<h1>도서 목록</h1>
+{% for book in books %}
+<p>
+{{ book.title }} - {{ book.author }}
+{% if book.price >= 20000 %}
+<strong>(고가 도서)</strong>
+{% endif %}
+</p>
+{% endfor %}
