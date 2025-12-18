@@ -1,0 +1,71 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+<div class="page">
+
+<h1>{% if request.user.is_staff %}All Todo (Admin){% else %}내 Todo{% endif %}</h1>
+
+<form method="get" style="display:flex; gap:8px; margin-bottom:20px;">
+    <input name="q" placeholder="검색" value="{{ request.GET.q }}">
+    <button>검색</button>
+
+    <button type="button" onclick="location.href='{% url 'cbv_todo_create' %}'">
+        + 새 Todo
+    </button>
+</form>
+
+<ul style="list-style:none; padding:0; margin:0;">
+{% for todo in page_obj %}
+    <li style="
+        padding:14px 10px;
+        border-bottom:1px solid #e5e7eb;
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        gap:16px;
+    ">
+        <div>
+
+            <a href="{% url 'cbv_todo_info' todo.id %}"
+            style="text-decoration:none; color:#111827; font-weight:600;">
+                {{ todo.title }}
+            </a>
+
+            <div style="font-size:12px; color:#6b7280; margin-top:4px;">
+                생성 {{ todo.created_at|date:"Y-m-d H:i" }}
+                · 수정 {{ todo.modified_at|date:"Y-m-d H:i" }}
+            </div>
+        </div>
+
+        {% if todo.is_completed %}
+            <span style="font-size:12px; color:#10b981; white-space:nowrap;">
+                완료
+            </span>
+        {% else %}
+            <span style="font-size:12px; color:#9ca3af; white-space:nowrap;">
+                진행중
+            </span>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+
+<div style="margin-top:24px; display:flex; justify-content:center; gap:16px;">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">← 이전</a>
+    {% else %}
+        <span style="color:#9ca3af;">← 이전</span>
+    {% endif %}
+
+    <span style="font-size:13px; color:#6b7280;">
+        {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">다음 →</a>
+    {% else %}
+        <span style="color:#9ca3af;">다음 →</span>
+    {% endif %}
+</div>
+
+</div>
+{% endblock %}

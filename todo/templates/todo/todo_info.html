@@ -1,0 +1,59 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+<div class="page">
+
+<h1>{{ todo.title }}</h1>
+
+<table style="width:100%; border-collapse:collapse;">
+    <tr>
+        <th style="text-align:left; padding:12px 0; width:120px;">설명</th>
+        <td>{{ todo.description }}</td>
+    </tr>
+
+    <tr>
+        <th style="padding:12px 0;">기간</th>
+        <td>{{ todo.start_date }} ~ {{ todo.end_date }}</td>
+    </tr>
+
+    <tr>
+        <th style="padding:12px 0;">상태</th>
+        <td>
+            {% if todo.is_completed %}
+                <span style="color:#10b981; font-weight:600;">완료</span>
+            {% else %}
+                <span style="color:#ef4444; font-weight:600;">진행중</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <th style="padding:12px 0;">생성 시간</th>
+        <td style="font-size:13px; color:#6b7280;">
+            {{ todo.created_at|date:"Y-m-d H:i" }}
+        </td>
+    </tr>
+
+    <tr>
+        <th style="padding:12px 0;">수정 시간</th>
+        <td style="font-size:13px; color:#6b7280;">
+            {{ todo.modified_at|date:"Y-m-d H:i" }}
+        </td>
+    </tr>
+</table>
+
+<div style="margin-top:36px; display:flex; gap:12px;">
+
+    <button onclick="location.href='{% url 'cbv_todo_update' todo.id %}'">
+        수정
+    </button>
+
+    <form method="post" action="{% url 'cbv_todo_delete' todo.id %}">
+        {% csrf_token %}
+        <button type="submit" style="color:#ef4444; border-color:#ef4444;">
+            삭제
+        </button>
+    </form>
+</div>
+
+</div>
+{% endblock %}
