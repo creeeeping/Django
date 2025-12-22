@@ -1,0 +1,14 @@
+from django.urls import path
+from .cb_views import (
+    TodoListView, TodoDetailView,
+    CommentCreateView, CommentUpdateView, CommentDeleteView
+)
+
+urlpatterns = [
+    path('todo/', TodoListView.as_view(), name='cbv_todo_list'),
+    path('todo/<int:pk>/', TodoDetailView.as_view(), name='cbv_todo_info'),
+
+    path('comment/<int:todo_id>/create/', CommentCreateView.as_view(), name='comment_create'),
+    path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='comment_update'),
+    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
+]

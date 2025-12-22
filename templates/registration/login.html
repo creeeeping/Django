@@ -1,0 +1,53 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+<div class="page" style="max-width:420px;">
+
+<h1 style="text-align:center;">로그인</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div style="
+            margin-bottom:16px;
+            padding:10px;
+            font-size:13px;
+            color:#b91c1c;
+            background:#fee2e2;
+            border-radius:6px;
+        ">
+            아이디 또는 비밀번호가 올바르지 않습니다.
+        </div>
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <button style="
+        margin-top:10px;
+        width:100%;
+        background:#111827;
+        color:#ffffff;
+        border:none;
+        padding:10px;
+        border-radius:6px;
+        font-size:15px;
+        cursor:pointer;
+    ">
+        로그인
+    </button>
+</form>
+
+<p style="
+    margin-top:16px;
+    text-align:center;
+    font-size:14px;
+    color:#6b7280;
+">
+    아직 회원이 아니신가요?
+    <a href="{% url 'signup' %}" style="color:#2563eb; font-weight:600;">
+        회원가입
+    </a>
+</p>
+
+</div>
+{% endblock %}

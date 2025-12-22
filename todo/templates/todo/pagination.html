@@ -1,0 +1,21 @@
+<div style="margin-top:20px; display:flex; justify-content:center; gap:12px;">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if fragment %}#{{ fragment }}{% endif %}">
+            ← 이전
+        </a>
+    {% else %}
+        <span style="color:#9ca3af;">← 이전</span>
+    {% endif %}
+
+    <span style="font-size:13px; color:#6b7280;">
+        {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if fragment %}#{{ fragment }}{% endif %}">
+            다음 →
+        </a>
+    {% else %}
+        <span style="color:#9ca3af;">다음 →</span>
+    {% endif %}
+</div>
