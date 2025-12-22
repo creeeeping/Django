@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page" style="max-width:420px;">
+
+<h1 style="text-align:center;">회원가입</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div style="
+            margin-bottom:16px;
+            padding:10px;
+            font-size:13px;
+            color:#b91c1c;
+            background:#fee2e2;
+            border-radius:6px;
+        ">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <button style="
+        margin-top:10px;
+        width:100%;
+        background:#111827;
+        color:#ffffff;
+        border:none;
+        padding:10px;
+        border-radius:6px;
+        font-size:15px;
+        cursor:pointer;
+    ">
+        회원가입
+    </button>
+</form>
+
+<p style="
+    margin-top:16px;
+    text-align:center;
+    font-size:14px;
+    color:#6b7280;
+">
+    이미 계정이 있으신가요?
+    <a href="{% url 'login' %}" style="color:#2563eb; font-weight:600;">
+        로그인
+    </a>
+</p>
+
+</div>
+{% endblock %}
